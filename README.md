@@ -135,9 +135,7 @@ Add your circuit image to the repository and rename it as `circuit.png`.
 Then include the following line:
 
 ```md
-![image alt](https://github.com/manubraj/PIC-Microcontroller-ADC-to-LCD-Project/blob/3a7c38d2c4212b681037141b4113032cfe7b81dd/ADC.png)
-```
-
+![image alt](https://github.com/manubraj/PIC-Microcontroller-ADC-to-LCD-Project/blob/3a39a85ae3164516877a2b010d37b721a2ddfc8c/ADC.png)
 ---
 
 ## ⚠️ Notes
