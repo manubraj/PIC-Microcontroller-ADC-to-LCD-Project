@@ -174,4 +174,4 @@ Developed and tested using:
 * LM016L 16x2 LCD Module
 
 
-![image alt](https://github.com/manubraj/PIC-Microcontroller-ADC-to-LCD-Project/blob/c87d64710a111d4835a2751d0a260931bbfc0277/ADC.png)
+![image alt](https://github.com/manubraj/PIC-Microcontroller-ADC-to-LCD-Project/blob/a4d539b627b5499f9e04a47c3be94f372bcf1327/ACESS%20GRANTED.png)
