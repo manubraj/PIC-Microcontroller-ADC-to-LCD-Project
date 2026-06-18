@@ -1,28 +1,28 @@
-# PIC-Microcontroller-ADC-to-LCD-Project
-This project demonstrates how to interface the ADC module of a PIC16F4550 microcontroller with a 16x2 LCD. The analog input voltage is converted into a digital value using the built-in ADC and displayed as a three-digit decimal number on the LCD screen in real time.
-# PIC16F4550 ADC to LCD Display Interface
+# PIC18F4550 ADC to LCD Display Interface
 
 ## 💡 Project Description
 
-This project demonstrates how to interface the ADC module of a PIC16F4550 microcontroller with a 16x2 LCD. The analog input voltage is converted into a digital value using the built-in ADC and displayed as a three-digit decimal number on the LCD screen in real time.
+This project demonstrates how to interface the ADC module of a PIC18F4550 microcontroller with a 16x2 LCD. The analog input voltage applied to RA0 (AN0) is converted into a digital value using the built-in ADC and displayed as a three-digit decimal number on the LCD screen.
 
 ---
 
 ## 🛠️ Hardware Components
 
-* PIC16F4550 Microcontroller
+* PIC18F4550 Microcontroller
 * 16x2 Character LCD (LM016L or equivalent)
-* 1kΩ Potentiometer/Variable Resistor for LCD contrast adjustment
-* Analog Input Source (Potentiometer or Sensor)
-* Power Supply (5V)
+* 1kΩ Potentiometer
+* 5V Power Supply
+* Connecting Wires
+* Proteus Simulation Software (Optional)
 
 ### Circuit Connections
 
-* LCD Data Pins (D0–D7) → PORTD
+* LCD Data Pins (D0–D7) → PORTD (RD0–RD7)
 * LCD RS Pin → RC0
 * LCD EN Pin → RC1
+* LCD RW Pin → GND
 * Analog Input → RA0 (AN0)
-* LCD Contrast Pin (VEE) → 1kΩ Potentiometer
+* Potentiometer Wiper → RA0 (AN0)
 
 ---
 
@@ -30,7 +30,7 @@ This project demonstrates how to interface the ADC module of a PIC16F4550 microc
 
 * MPLAB X IDE
 * XC8 Compiler
-* PIC16F4550 Header Files
+* PIC18F4550 Header Files
 * Embedded C Programming Language
 
 ---
@@ -38,45 +38,139 @@ This project demonstrates how to interface the ADC module of a PIC16F4550 microc
 ## 🚀 How to Use
 
 1. Open the project in MPLAB X IDE.
-2. Compile the source code using the XC8 compiler.
-3. Generate the HEX file and program it into the PIC16F4550.
-4. Connect the hardware according to the circuit diagram.
-5. Power the circuit and observe the ADC value displayed on the LCD.
+2. Copy the source code into a new project.
+3. Compile the code using the XC8 compiler.
+4. Generate the HEX file.
+5. Load the HEX file into the PIC18F4550.
+6. Connect the circuit according to the schematic.
+7. Power the circuit and observe the ADC value displayed on the LCD.
 
 ---
 
 ## ✨ Features
 
-* Real-time ADC value monitoring
-* Simple LCD interfacing
-* Easy-to-understand Embedded C implementation
-* Suitable for beginners learning PIC microcontrollers
+* ADC conversion using PIC18F4550
+* LCD interfacing through PORTD
+* Real-time display of ADC values
+* Simple and beginner-friendly Embedded C code
+* Suitable for learning ADC and LCD interfacing concepts
+
+---
+
+## 📂 Source Code
+
+```c
+#include <pic18.h>
+
+void delay(){
+    int i, j;
+    for (i = 0; i < 250; i++) {
+        for (j = 0; j < 250; j++) {
+        }
+    }
+}
+
+void command(int cmd) {
+    LATD = cmd;
+    RC0 = 0;
+    RC1 = 1;
+    delay();
+    RC1 = 0;
+}
+
+void data(int data) {
+    LATD = data;
+    RC0 = 1;
+    RC1 = 1;
+    delay();
+    RC1 = 0;
+}
+
+void main(void) {
+    char a, b, c, d;
+
+    TRISD = 0x00;
+    TRISA = 0xFF;
+    TRISC = 0x00;
+
+    ADCON0 = 0x01;
+    ADCON1 = 0x00;
+
+    delay();
+
+    command(0x38);
+    command(0x80);
+    command(0x06);
+    command(0x0E);
+    command(0x01);
+
+    GODONE = 1;
+
+    while (GODONE == 1) {
+        a = ADRESH;
+
+        b = ((a / 100) + 48);
+        data(b);
+
+        c = (((a % 100) / 10) + 48);
+        data(c);
+
+        d = ((a % 10) + 48);
+        data(d);
+
+        delay();
+        command(0x01);
+    }
+
+    return;
+}
+```
+
+---
+
+## 📸 Circuit Diagram
+
+Add your circuit image to the repository and rename it as `circuit.png`.
+
+Then include the following line:
+
+```md
+![Circuit Diagram](circuit.png)
+```
 
 ---
 
 ## ⚠️ Notes
 
-* Delay values may require modification depending on the oscillator frequency used.
-* ADC readings are dependent on the reference voltage supplied to the microcontroller.
-* Proper grounding and stable power supply are recommended for accurate measurements.
+* The program reads the ADC result from the ADRESH register.
+* Delay values may need adjustment depending on the oscillator frequency.
+* ADC accuracy depends on the reference voltage and power supply stability.
+* This implementation displays only the upper 8 bits of the ADC result.
 
 ---
 
 ## 📚 Applications
 
-* Sensor Data Monitoring
-* Voltage Measurement Systems
-* Embedded System Learning Projects
-* ADC Interface Demonstrations
+* ADC Learning Projects
+* Sensor Monitoring Systems
+* Voltage Measurement Applications
+* Embedded Systems Education
+* PIC Microcontroller Practice Projects
 
 ---
 
-## 📄 Disclaimer
+## 📄 License
 
-This project is intended for educational and learning purposes only. Users are free to modify and enhance the code according to their requirements.
+This project is intended for educational and learning purposes. Feel free to modify and improve the code for academic and personal use.
 
 ---
 
-## 🙏 Credits
+## 🙏 Acknowledgements
 
-Developed and tested using the PIC16F4550 microcontroller and a standard 16x2 LCD display module.
+Developed and tested using:
+
+* PIC18F4550 Microcontroller
+* MPLAB X IDE
+* XC8 Compiler
+* Proteus Design Suite
+* LM016L 16x2 LCD Module
