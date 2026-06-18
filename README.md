@@ -172,3 +172,6 @@ Developed and tested using:
 * XC8 Compiler
 * Proteus Design Suite
 * LM016L 16x2 LCD Module
+
+
+![image alt](https://github.com/manubraj/PIC-Microcontroller-ADC-to-LCD-Project/blob/c87d64710a111d4835a2751d0a260931bbfc0277/ADC.png)
